@@ -1,0 +1,100 @@
+<div>
+  <table class= "table table-bordered">
+    <thead>
+      <tr>
+        <th> Name </th> 
+        <th>Leave start date </th>
+        <th>Leave end date  </th>
+        <th>Reason for leave  </th>
+        <th>Leave status  </th>
+        <th>Reason for rejection  </th>
+        <th> Action </th>
+      </tr>
+    </thead>
+    <tbody>
+        
+          <tr>
+            <% if @employees.compact!.present? %>
+            <% @employees.each do |leave| %>
+              <tr>
+                <td>
+                <%= current_user.fullname %>
+                </td>
+                <td>
+                  <%=leave.start_date%>
+                </td>
+                <td>
+                  <%=leave.end_date%>
+                </td>
+                <td>
+                  <%=leave.reason_for_leave%>
+                </td>
+                <td>
+                  <%=leave.status%>
+                </td>
+                <td>
+                  <%=leave.reason_for_rejection%>
+                </td>
+                <td>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#todo-<%= leave.id %>-notes">Approve
+                </button>
+                <!-- Approve Modal -->
+                <div class="modal fade" id="todo-<%= leave.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="todo-<%= leave.id %>-label" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="todo-<%= leave.id %>-label">Approve Leave</h4>
+                      </div>
+                      <%= form_for leave, url: approve_leave_path(leave.id), remote: true do |f|%>
+                        <div class="modal-body">
+                          Are you sure you want to approve leave?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                          <%= f.submit "Approve", :class => 'btn btn-primary' %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+
+              <button class="btn btn-primary" data-toggle="modal" data-target="#reject-<%= leave.id %>-notes">Reject
+                </button>
+                <!-- Reject Modal -->
+                <div class="modal fade" id="reject-<%= leave.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="todo-<%= leave.id %>-label" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="todo-<%= leave.id %>-label">Reject Leave</h4>
+                      </div>
+                      <%= form_for leave, url: reject_leave_path(leave.id), remote: true do |f|%>
+                        <div class="modal-body">
+                          Are you sure you want to reject leave? <br>
+                          <%= f.label :reason_for_rejection, class: '' %>
+                          <%= f.text_area :reason_for_rejection, :class => 'fullwidth title', :required => true %><br /><br />
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                          <%= f.submit "Reject", :class => 'btn btn-primary' %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <script>
+              $('.edit_leave').on('submit', function() {
+                location.reload();
+              });
+
+              </script>
+                  
+                </td>
+              </tr>
+            <% end %>
+          </tr>
+        <br>
+     <% end %>
+    </tbody>
+  </table>
+</div>
+

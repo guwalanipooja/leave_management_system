@@ -1,0 +1,6 @@
+<h1><%= @user.fullname %></h1>
+<%= form_for @user, url: user_path, html: { multipart: true } do |f| %>
+  <%= f.label :upload_profile_photo %>
+  <%= f.file_field :avatar %>
+  <%= f.submit%>
+<% end %>

@@ -1,0 +1,48 @@
+
+<div>
+  <%= link_to "Apply leave",  new_leave_path, :class => "btn btn-primary" %> 
+  <% if can? :approve , Leave %>
+    <%= link_to "Approve leave",  leave_requests_leaves_path, :class => "btn btn-primary" %> <br><br>
+  <% end %>
+ 
+</div>
+
+<div>
+  <table class= "table table-bordered">
+    <thead>
+      <tr>
+        <th>Leave start date </th>
+        <th>Leave end date  </th>
+        <th>Total Days </th>
+        <th>Reason for leave  </th>
+        <th>Leave status  </th>
+        <th>Reason for rejection  </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @leaves.each do |leave| %>
+      <tr>
+        <td>
+          <%=leave.start_date%>
+        </td>
+        <td>
+          <%=leave.end_date%>
+        </td>
+        <td>
+          <%=leave.total_days%>
+        </td>
+        <td>
+          <%=leave.reason_for_leave%>
+        </td>
+        <td>
+          <%=leave.status%>
+        </td>
+        <td>
+          <%=leave.reason_for_rejection%>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+

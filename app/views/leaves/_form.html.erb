@@ -1,0 +1,12 @@
+<%= form_for  @leave do |f| %>
+
+  <%= datepicker_input f, :start_date%>
+  <%= datepicker_input f, :end_date%>
+    
+
+  <%= f.label :reason_for_leave %>
+  <%= f.text_area :reason_for_leave, :class => 'fullwidth title', :required => true %><br /><br />
+
+  <%= f.submit%>
+  
+<% end %>
