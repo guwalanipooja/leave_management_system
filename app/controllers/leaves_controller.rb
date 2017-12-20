@@ -15,12 +15,12 @@ class LeavesController < ApplicationController
     @leave.status = "pending"
     @leave.manager_id = current_user.parent_id
 
-    if @leave.save!
+    if @leave.save
       flash[:notice] = "Leave applied successfully."
       redirect_to leaves_path
     else
-      flash[:error] = "Error applying leave."
-      render :new
+      flash.now[:alert] = @leave.errors.messages[:end_date].first
+      render "new"
     end
   end
 
@@ -34,7 +34,7 @@ class LeavesController < ApplicationController
       @employees << emp.leaves.where(status: "pending")
     end
     return @employees
-    
+
   end
 
   def approve
