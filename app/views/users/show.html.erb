@@ -1,6 +1,9 @@
 <h1><%= @user.fullname %></h1>
+<% if @user.avatar.present? %>
+  <%= image_tag @user.avatar.url(:thumb) %>
+<% end %>
 <%= form_for @user, url: user_path, html: { multipart: true } do |f| %>
-  <%= f.label :upload_profile_photo %>
-  <%= f.file_field :avatar %>
+  <%= f.label :upload_profile_photo %><br>
+  <%= f.file_field :avatar %><br>
   <%= f.submit%>
 <% end %>

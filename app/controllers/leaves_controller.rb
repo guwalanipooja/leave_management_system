@@ -13,7 +13,7 @@ class LeavesController < ApplicationController
   def create
     @leave = current_user.leaves.new leave_params
     @leave.status = "pending"
-    #@leave.manager_id = current_user.parent_id
+    @leave.manager_id = current_user.parent_id
 
     if @leave.save!
       flash[:notice] = "Leave applied successfully."
@@ -29,9 +29,12 @@ class LeavesController < ApplicationController
   end
 
   def leave_requests
-    @employees = current_user.children.map do |emp|
-      emp.leaves.find_by(status: "pending")
+    @employees = []
+    current_user.children.map do |emp|
+      @employees << emp.leaves.where(status: "pending")
     end
+    return @employees
+    
   end
 
   def approve

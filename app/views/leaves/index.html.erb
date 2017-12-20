@@ -1,11 +1,7 @@
-
-<div>
-  <%= link_to "Apply leave",  new_leave_path, :class => "btn btn-primary" %> 
-  <% if can? :approve , Leave %>
-    <%= link_to "Approve leave",  leave_requests_leaves_path, :class => "btn btn-primary" %> <br><br>
-  <% end %>
- 
-</div>
+<% if can? :approve , Leave %>
+  <%= link_to "Approve pending leaves",  leave_requests_leaves_path, :class => "btn btn-primary" %> <br><br>
+<% end %>
+<br><br>
 
 <div>
   <table class= "table table-bordered">
