@@ -1,5 +1,5 @@
 <% if can? :approve , Leave %>
-  <%= link_to "Approve pending leaves",  leave_requests_leaves_path, :class => "btn btn-primary" %> <br><br>
+  <%= link_to "Approve pending leaves",  leave_requests_leaves_path, :class => "btn btn-primary", style: 'align:right'%> <br><br>
 <% end %>
 <br><br>
 
@@ -41,4 +41,5 @@
     </tbody>
   </table>
 </div>
+<%= will_paginate @leaves %>
 

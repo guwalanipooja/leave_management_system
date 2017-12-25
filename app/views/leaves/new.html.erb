@@ -1,1 +1,38 @@
-<%= render 'form', locals: {leave: @leave} %>
+<br><br>
+
+<%= form_for  @leave do |f| %>
+
+  <div class="form_row">
+    <div class="form_name fw-500"> Start Date <span class="star">*</span></div>
+    <div class="form_field date_field input-append date datepicker"><%= f.text_field :start_date, required: "required" %>
+        <div class="add-on"><i class="fa fa-calendar"></i></div>
+    </div>
+  </div>
+    
+  <div class="form_row">
+    <div class="form_name fw-500">End Date <span class="star">*</span></div>
+    <div class="form_field date_field input-append date datepicker"><%= f.text_field :end_date, required: "required" %>
+        <div class="add-on"><i class="fa fa-calendar"></i></div>
+    </div>
+  </div><br>
+  <%= f.label :reason_for_leave %><span class="star">*</span>
+  <%= f.text_area :reason_for_leave, :class => 'fullwidth title', :required => true %><br /><br />
+
+  <%= f.submit "Apply leave", :class => 'btn btn-primary'%>
+  
+<% end %>
+<script>
+$('.datepicker').datepicker({
+    autoclose: true,
+    todayBtn: true,
+    format: "yyyy-mm-dd",
+    startDate: Date.today
+});
+/*Date Picker*/
+$('input.datepicker').change(function() {
+    if ($(this).val() != "") {
+        $(this).valid();
+    }
+});
+
+</script>

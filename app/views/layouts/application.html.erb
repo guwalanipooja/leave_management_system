@@ -19,11 +19,15 @@
   <body>
 
        <br>
+       <div align="center">
        <% if flash[:notice].present? %>
-        <div class= "alert alert-success" role="alert"><%= flash[:notice] %> </div>
+        <div class= "alert alert-success alert-dismissable" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= flash[:notice] %> </div>
        <% elsif flash[:alert].present? %>
-        <div class= "alert alert-success" role="alert"><%= flash[:alert] %> </div>
+        <div class= "alert alert-danger alert-dismissable" role="alert"><%= flash[:alert] %> </div>
        <% end %>
+       </div>
        <% if user_signed_in? %>
         <%= link_to('Profile', user_path(current_user.id), :class => "btn btn-primary") %>
         <%= link_to('Logout', destroy_user_session_path, :method => :delete, :class => "btn btn-primary") %>
@@ -33,6 +37,7 @@
         <% end %>
        
       <% end %>
+      
     <%= yield %>
   </body>
 </html>

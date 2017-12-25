@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   devise_for :users, :path_prefix => 'd', controllers: {
     registrations: 'users/registrations'
   }
+  
   match '/users/:id',     to: 'users#show',       via: 'get'
   match '/users/:id',     to: 'users#show',       via: 'patch'
-  #devise_for :users, :path_prefix => 'd'
   resources :users, :only =>[:show]
   resources :leaves do
     collection do
